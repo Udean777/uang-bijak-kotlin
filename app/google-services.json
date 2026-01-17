@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "454131553771",
+    "project_id": "uang-bijak-6172b",
+    "storage_bucket": "uang-bijak-6172b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454131553771:android:bdb2a5719581c4d05675ae",
+        "android_client_info": {
+          "package_name": "com.ssajudn.uangbijak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454131553771-37d8aubfbk9a8m3aqkltv8ncec26nufa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXrfI-nn9KYivTEE0Hxu1POHrVL_Yz7xo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454131553771-37d8aubfbk9a8m3aqkltv8ncec26nufa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "454131553771-q6ov7dsvour8sqkmaim4v29518f8oft9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.uangbijak.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
