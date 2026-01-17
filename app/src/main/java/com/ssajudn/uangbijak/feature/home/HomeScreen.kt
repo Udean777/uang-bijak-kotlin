@@ -1,8 +1,10 @@
 package com.ssajudn.uangbijak.feature.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -30,6 +33,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -42,6 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.ssajudn.uangbijak.core.component.WalletCard
 import com.ssajudn.uangbijak.core.util.CurrencyUtils
 import com.ssajudn.uangbijak.data.model.Transaction
 import java.text.SimpleDateFormat
@@ -54,6 +59,8 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val transactions by viewModel.transactions.collectAsState()
+    val wallets by viewModel.wallets.collectAsState()
+    val totalBalance by viewModel.totalBalance.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
 
     Scaffold(
@@ -96,25 +103,58 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 10.dp)
             ) {
                 item {
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                "Dompet Saya",
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold
+                            )
+                            TextButton(onClick = { /* TODO: Tambahkan aksi ketika tombol tambah ditekan */ }) {
+                                Text("+ Tambah")
+                            }
+                        }
+                    }
+
+                    LazyRow(
+                        contentPadding = PaddingValues(horizontal = 10.dp),
+                        modifier = Modifier.padding(bottom = 24.dp)
+                    ) {
+                        items(wallets) { wallet ->
+                            WalletCard(wallet = wallet)
+                        }
+                    }
+                }
+
+                item {
                     Text(
                         "Transaksi Terakhir",
                         style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(horizontal = 10.dp)
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
                 if (transactions.isEmpty()) {
                     item {
-                        Text("Belum ada data transaksi.", modifier = Modifier.padding(top = 20.dp))
+                        Text(
+                            "Belum ada data transaksi.",
+                            modifier = Modifier.padding(horizontal = 10.dp)
+                        )
                     }
                 } else {
                     items(transactions) { transaction ->
-                        TransactionItem(transaction)
+                        Box(modifier = Modifier.padding(horizontal = 10.dp)) {
+                            TransactionItem(transaction)
+                        }
                     }
                 }
             }
